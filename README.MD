@@ -16,3 +16,7 @@
 ##### People who supported our projects
 
 *Be the first to support us.*
+
+###### Thanks to:
+
+- [QuantaHut | UiTweaks](https://t.me/QuantaPlugins)

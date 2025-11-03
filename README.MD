@@ -1,3 +1,18 @@
-# GuA
+# GuA Plugin
 
-Hello, this repository is created to host _GuA_ _Plugin_ files.
+## Description
+
+**GuA Plugin** - *a flexible plugin for exteraGram that adds many new features*.
+
+### License
+
+*You can use our code in your projects, but you must indicate that your code is based on our code.*
+
+#### Developers
+
+- [GuAmain](t.me/GuAmain)
+- [oxxximif / oxxxiStorm](t.me/oxxximif)
+
+##### People who supported our projects
+
+*Be the first to support us.*

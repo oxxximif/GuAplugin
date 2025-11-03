@@ -1,0 +1,182 @@
+__id__ = "GuA"
+__name__ = "GuA"
+__description__ = "**GuALib** / **quantahut** **1.4.5** **is** **required** | @GuAmain | @GuAgchat"
+__author__ = "@oxxximif"
+__version__ = "1.0.0"
+__icon__ = "GuAicons/1"
+__min_version__ = "12.0.1"
+
+from ui.settings import Header, Input, Divider, Switch, Selector, Text, EditText
+from client_utils import get_last_fragment
+from ui.alert import AlertDialogBuilder
+from android.view import View
+from ui.bulletin import BulletinHelper
+from org.telegram.messenger import R as R_tg
+from base_plugin import BasePlugin, MenuItemData, MenuItemType
+from typing import Dict, Any
+
+try:
+    import quantahut
+    if hasattr(quantahut, '__version__') and quantahut.__version__ < "1.4.5":
+        raise Exception(f"You have an old version of GuALib installed. Please update to the latest version.")
+    from quantahut import showmultiselector, showupdatebottomsheet, export_plugin_settings
+except ImportError:
+    raise Exception("Install GuALib")
+
+QuantaHut = quantahut
+
+class guaPlugin(BasePlugin):
+    def on_plugin_load(self):
+        current_fragment = get_last_fragment()
+        BulletinHelper.show_info("hello by.GuA", current_fragment)
+        self.log("GuA loaded")
+ 
+    def on_plugin_unload(self):
+        self.log("GuA unloaded")
+    
+    def _create_Gen_frag(self):
+        pass
+        
+    def _create_Appear_frag(self):
+        pass
+        
+    def _create_Chats_fragment(self):
+        pass
+    
+    def _create_Dev_fragment(self):
+        showupdatebottomsheet(
+            title="Developers",
+            subtitle="GuA Developers",
+            description="""The main developer is @oxxximif.
+If you want to join the GuA team, please contact @oxxximif in private messages.
+
+All usernames are clickable at the bottom of the plugin settings""",
+            github_url=None,
+            plugin_name="GuA_DevInfo",
+            sticker_pack="GuAicons",
+            sticker_index=1,
+            button_text="Understood",
+            bottom_text="💕💕💕",
+            show_language_selector=False,
+            show_user_avatar=False
+        )
+        
+        
+    def _create_sup_fragment(self):
+        showupdatebottomsheet(
+            title="About Donations",
+            subtitle="Supporting GuA Development",
+            description="If you want to support the development of GuA, write to @oxxximif and ask about the current translation method. You can also simply give a Telegram gift.",
+            github_url=None,
+            plugin_name="GuA_DonationInfo",
+            sticker_pack="GuAicons",
+            sticker_index=1,
+            button_text="Understood",
+            bottom_text="Thank you for considering supporting the development of GuA!",
+            show_language_selector=False,
+            show_user_avatar=False
+        )
+        
+    def _create_Help_fragment(self):
+        return[
+            Header(text="General"),
+            Header(text="Appearance"),
+            Header(text="Chats"),
+            Header(text="Bugs"),
+            Divider(text="""If you find a bug in the plugin, write to the @GuAgchat chat in the Bugs topic using the pinned form.\n\nIf the bug is critical, write to @oxxximif in private messages"""),
+        ]
+    
+    def _create_ChannelLin_fragment(self):
+        try:
+            from client_utils import get_last_fragment
+            from java import jclass
+            fragment = get_last_fragment()
+            if fragment:
+                MessagesController = jclass("org.telegram.messenger.MessagesController")
+                messages_controller = MessagesController.getInstance(0)
+                messages_controller.openByUserName("GuAmain", fragment, 1)
+        except Exception as e:
+            self.log(f"Error opening group: {e}")
+    
+    def _create_ChatsLin_fragment(self):
+        try:
+            from client_utils import get_last_fragment
+            from java import jclass
+            fragment = get_last_fragment()
+            if fragment:
+                MessagesController = jclass("org.telegram.messenger.MessagesController")
+                messages_controller = MessagesController.getInstance(0)
+                messages_controller.openByUserName("GuAgchat", fragment, 1)
+        except Exception as e:
+            self.log(f"Error opening group: {e}")
+    
+    def _on_text_WarAtt(self):
+        showupdatebottomsheet(
+            title="Attention",
+            subtitle="Important information",
+            description="Plugin GuA may affect the device's performance",
+            github_url=None,
+            plugin_name="GuA_AttentionInfo",
+            sticker_pack="GuAicons",
+            sticker_index=1,
+            button_text="Understood",
+            bottom_text="Use only the functions that you need.",
+            show_language_selector=False,
+            show_user_avatar=False
+        )
+    
+    def create_settings(self):
+        return[
+            Header(text="Categories"),
+            Text(
+                text="General",
+                icon="msg_media_solar",
+                create_sub_fragment=self._create_Gen_frag,
+                ),
+            Text(
+                 text="Appearance",
+                 icon="msg_palette",
+                 create_sub_fragment=self._create_Appear_frag,
+                ),
+            Text(
+                 text="Chats",
+                 icon="msg2_discussion",
+                 create_sub_fragment=self._create_Chats_fragment,
+                ),
+            Text(
+                 text="Developers",
+                 icon="menu_devices",
+                 on_click=lambda v: self._create_Dev_fragment(),
+                ),
+            Text(
+                 text="Development support",
+                 icon="etg_settings",
+                 on_click=lambda v: self._create_sup_fragment(),
+                ),
+            Text(
+                 text="Help",
+                 icon="msg_help",
+                 create_sub_fragment=self._create_Help_fragment,
+                ),
+            Divider(),
+            Header(text="Links"),
+            Text(
+                 text="Channel",
+                 icon="msg_channel_solar",
+                 on_click=lambda v: self._create_ChannelLin_fragment(),
+                ),
+            Text(
+                 text="Chats",
+                 icon="msg2_discussion",
+                 on_click=lambda v: self._create_ChatsLin_fragment(),
+                 ),
+            Divider(),
+            Header(text="Warning"),
+            Text(
+                 text="Attention",
+                 icon="msg_info",
+                 accent=True,
+                 on_click=lambda v: self._on_text_WarAtt(),
+                ),
+            Divider(text="@GuAmain | @oxxximif | @GuAgchat | GuA"),
+        ]

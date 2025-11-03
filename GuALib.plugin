@@ -1,0 +1,12 @@
+__id__ = "gualib"
+__name__ = "GuALib"
+__description__ = "**Library for GuA**"
+__author__ = "@oxxximif"
+__version__ = "1.0.0"
+__icon__ = "GuAicons/0"
+__min_version__ = "12.1.1"
+
+fron base_plugin import BasePlugin
+
+class gualib(BasePlugin):
+    pass

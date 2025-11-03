@@ -1,10 +1,10 @@
 __id__ = "GuA"
 __name__ = "GuA"
-__description__ = "**GuALib** / **quantahut** **1.4.5** **is** **required** | @GuAmain | @GuAgchat"
+__description__ = "**GuALib** **and** **quantahut** **1.4.5** **is** **required** | @GuAmain | @GuAgchat"
 __author__ = "@oxxximif"
 __version__ = "1.0.0"
 __icon__ = "GuAicons/1"
-__min_version__ = "12.0.1"
+__min_version__ = "12.1.1"
 
 from ui.settings import Header, Input, Divider, Switch, Selector, Text, EditText
 from client_utils import get_last_fragment
@@ -18,10 +18,18 @@ from typing import Dict, Any
 try:
     import quantahut
     if hasattr(quantahut, '__version__') and quantahut.__version__ < "1.4.5":
-        raise Exception(f"You have an old version of GuALib installed. Please update to the latest version.")
+        raise Exception(f"You have an old version of quantahut installed. Please update to the latest version.")
     from quantahut import showupdatebottomsheet
 except ImportError:
-    raise Exception("Install GuALib or quantahut")
+    raise Exception("Install quantahut")
+
+try:
+    import gualib
+    if hasattr(gualib, '__version__') and gualib.__version__ < "1.0.0":
+        raise Exception(f"You have an old version of GuALib installed. Please update to the latest version.")
+except ImportError:
+    raise Exception("Install GuALib")
+
 
 QuantaHut = quantahut
 

@@ -1,6 +1,6 @@
 # GuA Plugin
 
-![Logo GuA](https://github.com/oxxxiStorm/Gua-Archive/blob/main/1000168905.png)
+![Logo GuA](https://github.com/oxxxiStorm/Gua-Archive/blob/main/image%20(4)%20(1).png)
 
 ## Description
 

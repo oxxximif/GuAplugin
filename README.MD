@@ -10,8 +10,8 @@
 
 #### Developers
 
-- [GuAmain](t.me/GuAmain)
-- [oxxximif / oxxxiStorm](t.me/oxxximif)
+- [GuAmain](https://t.me/GuAmain)
+- [oxxximif / oxxxiStorm](https://t.me/oxxximif)
 
 ##### People who supported our projects
 

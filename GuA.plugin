@@ -110,6 +110,12 @@ All usernames are clickable at the bottom of the plugin settings""",
         except Exception as e:
             self.log(f"Error opening group: {e}")
     
+    def _create_GitHubLin_fragment(self):
+        from android.content import Intent
+        from android.net import Uri
+        intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/oxxximif/GuAplugin"))
+        get_last_fragment().getParentActivity().startActivity(intent)
+
     def _on_text_WarAtt(self):
         showupdatebottomsheet(
             title="Attention",
@@ -170,6 +176,11 @@ All usernames are clickable at the bottom of the plugin settings""",
                  icon="msg2_discussion",
                  on_click=lambda v: self._create_ChatsLin_fragment(),
                  ),
+            Text(
+                 text="GitHub",
+                 icon="msg_input_like",
+                 on_click=lambda v: self._create_GitHubLin_fragment(),
+                ),
             Divider(),
             Header(text="Warning"),
             Text(

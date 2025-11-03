@@ -19,9 +19,9 @@ try:
     import quantahut
     if hasattr(quantahut, '__version__') and quantahut.__version__ < "1.4.5":
         raise Exception(f"You have an old version of GuALib installed. Please update to the latest version.")
-    from quantahut import showmultiselector, showupdatebottomsheet, export_plugin_settings
+    from quantahut import showupdatebottomsheet
 except ImportError:
-    raise Exception("Install GuALib")
+    raise Exception("Install GuALib or quantahut")
 
 QuantaHut = quantahut
 

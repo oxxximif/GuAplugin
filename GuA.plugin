@@ -1,7 +1,7 @@
-__id__ = "GuA"
+__id__ = "GuA-ru"
 __name__ = "GuA"
-__description__ = "**GuALib** **and** **quantahut** **1.4.5** **is** **required** | @GuAmain | @GuAgchat"
-__author__ = "@oxxximif"
+__description__ = "**GuALib 1.0.0 and quantahut 1.4.6 is required** | @GuAmain | @GuAgchat"
+__author__ = "@oxxximif x @GuAmain"
 __version__ = "1.0.0"
 __icon__ = "GuAicons/1"
 __min_version__ = "12.1.1"
@@ -17,11 +17,11 @@ from typing import Dict, Any
 
 try:
     import quantahut
-    if hasattr(quantahut, '__version__') and quantahut.__version__ < "1.4.5":
-        raise Exception(f"You have an old version of quantahut installed. Please update to the latest version.")
-    from quantahut import showupdatebottomsheet
+    if hasattr(quantahut, '__version__') and quantahut.__version__ < "1.4.6":
+        raise Exception(f"QuantaHut {quantahut.__version__} is too old. Need 1.4.6+")
+    from quantahut import showmultiselector, showupdatebottomsheet, export_plugin_settings
 except ImportError:
-    raise Exception("Install quantahut")
+    raise Exception("QuantaHut is required but not installed. Install it first. (Don't report this as a bug - it's your fault.)")
 
 try:
     import gualib
@@ -66,7 +66,8 @@ All usernames are clickable at the bottom of the plugin settings""",
             button_text="Understood",
             bottom_text="💕💕💕",
             show_language_selector=False,
-            show_user_avatar=False
+            show_user_avatar=False,
+            description_centered=True
         )
         
         
@@ -74,7 +75,7 @@ All usernames are clickable at the bottom of the plugin settings""",
         showupdatebottomsheet(
             title="About Donations",
             subtitle="Supporting GuA Development",
-            description="If you want to support the development of GuA, write to @oxxximif and ask about the current translation method. You can also simply give a Telegram gift.",
+            description="If you want to support the development of GuA, write to @oxxximif and ask about the current translation method. You can also simply make a gift to @oxxximif on Telegram.\n\nSupporting the project gives you the support status, and you can write to @oxxximif in private messages for more information.",
             github_url=None,
             plugin_name="GuA_DonationInfo",
             sticker_pack="GuAicons",
@@ -82,7 +83,8 @@ All usernames are clickable at the bottom of the plugin settings""",
             button_text="Understood",
             bottom_text="Thank you for considering supporting the development of GuA!",
             show_language_selector=False,
-            show_user_avatar=False
+            show_user_avatar=False,
+            description_centered=True
         )
         
     def _create_Help_fragment(self):
@@ -123,6 +125,18 @@ All usernames are clickable at the bottom of the plugin settings""",
         from android.net import Uri
         intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/oxxximif/GuAplugin"))
         get_last_fragment().getParentActivity().startActivity(intent)
+        
+    def _create_cost_fragment(self):
+        try:
+            from client_utils import get_last_fragment
+            from java import jclass
+            fragment = get_last_fragment()
+            if fragment:
+                MessagesController = jclass("org.telegram.messenger.MessagesController")
+                messages_controller = MessagesController.getInstance(0)
+                messages_controller.openByUserName("QuantaPlugins", fragment, 1)
+        except Exception as e:
+            self.log(f"Error opening group: {e}")        
 
     def _on_text_WarAtt(self):
         showupdatebottomsheet(
@@ -136,7 +150,8 @@ All usernames are clickable at the bottom of the plugin settings""",
             button_text="Understood",
             bottom_text="Use only the functions that you need.",
             show_language_selector=False,
-            show_user_avatar=False
+            show_user_avatar=False,
+            description_centered=True
         )
     
     def create_settings(self):
@@ -188,6 +203,11 @@ All usernames are clickable at the bottom of the plugin settings""",
                  text="GitHub",
                  icon="msg_input_like",
                  on_click=lambda v: self._create_GitHubLin_fragment(),
+                ),
+            Text(
+                 text="Thanks to QuantaPlugins",
+                 icon="msg_input_like",
+                 on_click=lambda v: self._create_cost_fragment()
                 ),
             Divider(),
             Header(text="Warning"),
